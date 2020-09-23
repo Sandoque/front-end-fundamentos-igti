@@ -184,7 +184,6 @@ function handleChangeInputB() {
 function calculate() {
   /**
    * Obtendo os valores de a e b
-   * a partir dos inputs (nome e sobrenome)
    */
   var a = parseInt(globalInputA.value, 10);
   var b = parseInt(globalInputB.value, 10);
