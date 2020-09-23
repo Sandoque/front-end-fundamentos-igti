@@ -14,6 +14,7 @@ h1 {
   font-size: 2rem;
   font-weight: bold;
   text-align: center;
+  color: purple;
 }
 
 h2 {
@@ -39,11 +40,16 @@ img {
   margin-right: 50px;
 }
 
-.personal-data {
+.dados-pessoais {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+}
+
+#dados {
+  margin-left: 30px;
+  list-style-type: disc;
 }
 
 table {
@@ -54,11 +60,12 @@ table,
 tr,
 th,
 td {
-  border: 1px solid black;
+  border: 1px solid rgb(146, 107, 107);
   padding: 5px;
+  margin-bottom: 30px;
+  margin-top: 30px;
 }
 
 th {
-  font-weight: bold;
-  text-align: center;
+  background-color: #ddd;
 }
