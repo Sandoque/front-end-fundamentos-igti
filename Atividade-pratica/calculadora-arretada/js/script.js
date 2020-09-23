@@ -1,39 +1,4 @@
 /**
- * Variável que contem todas
- * as vogais e possíveis
- * variações com acentos
- */
-var globalAllVowels = [
-  'a',
-  'á',
-  'ã',
-  'â',
-  'à',
-  'ä',
-  'e',
-  'ê',
-  'ë',
-  'è',
-  'é',
-  'i',
-  'í',
-  'ì',
-  'ï',
-  'î',
-  'o',
-  'ó',
-  'õ',
-  'ô',
-  'ö',
-  'ò',
-  'u',
-  'ú',
-  'û',
-  'ü',
-  'ù',
-];
-
-/**
  * Array de objetos que
  * contem a definição de todos
  * os cálculos do app, que será

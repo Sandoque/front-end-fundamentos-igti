@@ -1,8 +1,14 @@
 h1 {
   font-size: 2rem;
   font-weight: bolder;
+  background-color: aquamarine;
 }
 
 h2 {
   font-size: 1.6rem;
+  font-weight: bolder;
+}
+.row {
+  background-color: rgb(245, 243, 237);
+  font
 }
