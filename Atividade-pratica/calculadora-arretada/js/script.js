@@ -4,33 +4,33 @@
  * variações com acentos
  */
 var globalAllVowels = [
-  "a",
-  "á",
-  "ã",
-  "â",
-  "à",
-  "ä",
-  "e",
-  "ê",
-  "ë",
-  "è",
-  "é",
-  "i",
-  "í",
-  "ì",
-  "ï",
-  "î",
-  "o",
-  "ó",
-  "õ",
-  "ô",
-  "ö",
-  "ò",
-  "u",
-  "ú",
-  "û",
-  "ü",
-  "ù"
+  'a',
+  'á',
+  'ã',
+  'â',
+  'à',
+  'ä',
+  'e',
+  'ê',
+  'ë',
+  'è',
+  'é',
+  'i',
+  'í',
+  'ì',
+  'ï',
+  'î',
+  'o',
+  'ó',
+  'õ',
+  'ô',
+  'ö',
+  'ò',
+  'u',
+  'ú',
+  'û',
+  'ü',
+  'ù',
 ];
 
 /**
@@ -61,106 +61,119 @@ var globalAllVowels = [
 var globalCalculations = [
   {
     id: 1,
-    description: "Nome completo (BR):",
-    calculate: function fullName(a, b) {
-      return getFullName(a, b);
+    description: 'Soma (a + b):',
+    calculationFunction: function sum(a, b) {
+      return a + b;
     },
-    type: "a_b"
+    type: 'a_b',
   },
 
   {
     id: 2,
-    description: "Nome completo (USA):",
-    calculate: function americanFullName(a, b) {
-      return b + ", " + a;
+    description: 'Subtração 1 (a - b):',
+    calculationFunction: function subtract(a, b) {
+      return a - b;
     },
-    type: "a_b"
+    type: 'a_b',
   },
 
   {
     id: 3,
-    description: "Nome completo invertido:",
-    calculate: function reversedName(a, b) {
-      var fullName = getFullName(a, b);
-      var reversed = reverse(fullName);
-      return reversed;
+    description: 'Subtração 2 (b - a):',
+    calculationFunction: function subtract(b, a) {
+      return b - a;
     },
-    type: "a_b"
+    type: 'b_a',
   },
 
   {
     id: 4,
-    description: "Sobrenome e nome:",
-    calculate: function fullNameReversed(a, b) {
-      var fullName = getFullName(a, b);
-      return fullName;
+    description: 'Multiplicação(a x b):',
+    calculationFunction: function multiply(a, b) {
+      return formatNumber(a * b);
     },
-    type: "b_a"
+    type: 'a_b',
   },
 
   {
     id: 5,
-    description: "Caracteres de 'Nome':",
-    calculate: function countName(a) {
-      return a.length;
+    description: 'Divisão 1 (a / b):',
+    calculationFunction: function division(a, b) {
+      return getDivisionFrom(a, b);
     },
-    type: "a"
+    type: 'a_b',
   },
 
   {
     id: 6,
-    description: "Caracteres de 'Sobrenome':",
-    calculate: function countName(b) {
-      return b.length;
+    description: 'Divisão 2 (b / a):',
+    calculationFunction: function division(b, a) {
+      return getDivisionFrom(b, a);
     },
-    type: "b"
+    type: 'b_a',
   },
 
   {
     id: 7,
-    description: "Quantidade de vogais:",
-    calculate: function countVowels(a, b) {
-      var text = getFullNameWithoutSpaces(a, b);
-
-      /**
-       * Usando filter para manter somente
-       * as vogais do array
-       */
-      var vowelsCount = text.split("").filter(function onlyVowels(char) {
-        return globalAllVowels.includes(char);
-      }).length;
-
-      return vowelsCount;
+    description: 'Quadrado de a(a 2):',
+    calculationFunction: function square(a) {
+      return formatNumber(a ** 2);
     },
-    type: "a_b"
+    type: 'a',
   },
 
   {
     id: 8,
-    description: "Quantidade de consoantes:",
-    calculate: function countConsonants(a, b) {
-      var text = getFullNameWithoutSpaces(a, b);
-
-      /**
-       * Usando filter para manter somente
-       * as consoantes do array (!vowels)
-       */
-      var consonantsCount = text.split("").filter(function onlyVowels(char) {
-        return !globalAllVowels.includes(char);
-      }).length;
-
-      return consonantsCount;
+    description: 'Quadrado de b (b 2):',
+    calculationFunction: function square(b) {
+      return formatNumber(b ** 2);
     },
-    type: "a_b"
-  }
+    type: 'b',
+  },
+
+  {
+    id: 9,
+    description: 'Divisores inteiros de a:',
+    calculationFunction: function divisorsFrom(a) {
+      return getDivisorsFrom(a);
+    },
+    type: 'a',
+  },
+
+  {
+    id: 10,
+    description: 'Divisores inteiros de b:',
+    calculationFunction: function divisorsFrom(b) {
+      return getDivisorsFrom(b);
+    },
+    type: 'b',
+  },
+
+  {
+    id: 11,
+    description: 'Fatorial de a (a!):',
+    calculationFunction: function factorial(a) {
+      return getFactorialFrom(a);
+    },
+    type: 'a',
+  },
+
+  {
+    id: 12,
+    description: 'Fatorial de b (b!):',
+    calculationFunction: function factorial(b) {
+      return getFactorialFrom(b);
+    },
+    type: 'b',
+  },
 ];
 
 /**
  * Mapeamento dos inputs de interação com o usuário,
  * que estão em index.html.
  */
-var globalInputA = document.querySelector("#inputA");
-var globalInputB = document.querySelector("#inputB");
+var globalInputA = document.querySelector('#inputA');
+var globalInputB = document.querySelector('#inputB');
 
 /**
  * Tudo começa aqui. A execução desta função
@@ -171,50 +184,13 @@ function start() {
    * Adicionando evento para "escutar" a mudança
    * de valores nos inputs
    */
-  globalInputA.addEventListener("input", handleChangeInputA);
-  globalInputB.addEventListener("input", handleChangeInputB);
+  globalInputA.addEventListener('input', handleChangeInputA);
+  globalInputB.addEventListener('input', handleChangeInputB);
 
   /**
    * Efetuando o cálculo inicial
    */
   calculate();
-}
-
-/**
- * Função para retornar o nome
- * completo. Foi isolada porque
- * é utilizada em diversos trechos
- * de código
- */
-function getFullName(a, b) {
-  return a + " " + b;
-}
-
-/**
- * Função para inverter as letras
- * de determinado texto, com o apoio
- * da função Array.reverse. Como a entrada
- * é texto (string), devemos convertê-la
- * para array, utilizar o reverse() e em
- * seguida convertê-la novamente para string
- * com a função join.
- */
-function reverse(text) {
-  return text.split("").reverse().join("");
-}
-
-/**
- * Monta o nome completo e retira
- * os espaços em branco com o apoio
- * da função filter
- */
-function getFullNameWithoutSpaces(a, b) {
-  return getFullName(a, b)
-    .split("")
-    .filter(function removeSpace(char) {
-      return char !== "";
-    })
-    .join("");
 }
 
 /**
@@ -245,27 +221,28 @@ function calculate() {
    * Obtendo os valores de a e b
    * a partir dos inputs (nome e sobrenome)
    */
-  var a = globalInputA.value;
-  var b = globalInputB.value;
+  var a = parseInt(globalInputA.value, 10);
+  var b = parseInt(globalInputB.value, 10);
 
   /**
    * Obtendo a div onde serão exibidos
    * todos os cálculos
    */
-  var divCalculations = document.querySelector("#calculations");
+  var divCalculations = document.querySelector('#calculations');
 
   /**
    * Criando div interna que será
    * preenchida dinamicamente
    */
-  var innerCalculations = document.createElement("div");
+  var innerCalculations = document.createElement('div');
+  innerCalculations.classList.add('row');
 
   /**
    * Adicionando class "row" que faz
    * parte do modelo de grid do Materialize
    * https://materializecss.com/grid.html
    */
-  innerCalculations.classList.add("row");
+  innerCalculations.classList.add('row');
 
   /**
    * Geração dinâmica dos cálculos
@@ -275,22 +252,19 @@ function calculate() {
      * Apelidando cálculo atual em currentCalculation
      */
     var currentCalculation = globalCalculations[i];
+    var type = currentCalculation.type;
+    var calculationFunction = currentCalculation.calculationFunction;
 
     /**
      * Montando id único
      */
-    var id = "input_" + currentCalculation.id;
+    var id = 'input_' + currentCalculation.id;
 
     /**
      * Calculando o valor conforme a função
      * calculate e type
      */
-    var value = getCalculationFrom(
-      currentCalculation.type,
-      currentCalculation.calculate,
-      a,
-      b
-    );
+    var value = getCalculationFrom(type, calculationFunction, a, b);
 
     /**
      * Montando os elementos conforme
@@ -309,7 +283,7 @@ function calculate() {
    * Após o loop, zeramos a div e inserimos
    * innerCalculations como filha.
    */
-  divCalculations.innerHTML = "";
+  divCalculations.innerHTML = '';
   divCalculations.appendChild(innerCalculations);
 }
 
@@ -333,9 +307,45 @@ function calculate() {
  * https://materializecss.com/grid.html
  *
  */
+function getDivisionFrom(number1, number2) {
+  if (number2 === 0) {
+    return 'Divisão por zero';
+  }
+  return formatNumber((number1 / number2).toFixed(2));
+}
+
+function formatNumber(number) {
+  return new Intl.NumberFormat('pt-BR').format(number);
+}
+
+function getDivisorsFrom(number) {
+  var divisors = [];
+
+  for (var i = 1; i <= number; i++) {
+    if (number % i === 0) {
+      divisors.push(i);
+    }
+  }
+
+  return divisors.join(', ') + ' (' + divisors.length + ')';
+}
+
+function getFactorialFrom(number) {
+  if (number > 21) {
+    return 'Número muito grande';
+  }
+
+  var factorial = 1;
+  for (var i = number; i > 1; i--) {
+    factorial *= i;
+  }
+
+  return formatNumber(factorial);
+}
+
 function getMaterializeDiv() {
-  var div = document.createElement("div");
-  div.classList.add("input-field", "col", "s12", "m6", "l4");
+  var div = document.createElement('div');
+  div.classList.add('input-field', 'col', 's12', 'm6', 'l4');
 
   return div;
 }
@@ -345,9 +355,9 @@ function getMaterializeDiv() {
  * id e value passados por parâmetro
  */
 function getMaterializeInput(id, value) {
-  var input = document.createElement("input");
+  var input = document.createElement('input');
   input.readOnly = true;
-  input.type = "text";
+  input.type = 'text';
   input.id = id;
   input.value = value;
 
@@ -359,10 +369,10 @@ function getMaterializeInput(id, value) {
  * id e descrição (textContent) passados por parâmetro
  */
 function getMaterializeLabel(id, description) {
-  var label = document.createElement("label");
+  var label = document.createElement('label');
   label.for = id;
   label.textContent = description;
-  label.classList.add("active");
+  label.classList.add('active');
 
   return label;
 }
@@ -375,28 +385,28 @@ function getMaterializeLabel(id, description) {
  * justamente o atributo "calculate" do objeto "calculations",
  * que é a função a ser executada
  */
-function getCalculationFrom(type, calculationFunction, a, b) {
-  var value = "";
+function getCalculationFrom(type, calculationFunction, number1, number2) {
+  var value = '';
 
   switch (type) {
-    case "a":
-      value = calculationFunction(a);
+    case 'a':
+      value = calculationFunction(number1);
       break;
 
-    case "b":
-      value = calculationFunction(b);
+    case 'b':
+      value = calculationFunction(number2);
       break;
 
-    case "a_b":
-      value = calculationFunction(a, b);
+    case 'a_b':
+      value = calculationFunction(number1, number2);
       break;
 
-    case "b_a":
-      value = calculationFunction(b, a);
+    case 'b_a':
+      value = calculationFunction(number2, number1);
       break;
 
     default:
-      value = "Cálculo não identificado.";
+      value = 'Cálculo não identificado.';
   }
 
   return value;
