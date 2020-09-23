@@ -251,26 +251,6 @@ function calculate() {
   divCalculations.appendChild(innerCalculations);
 }
 
-/**
- * Obtendo uma nova div conforme regras do Materialize
- * No sistema de grid do Materialize, a div "mãe" tem a
- * class "row" e todos os filhos tem class "col".
- *
- * 12 é o "número mágico" do sistema de grids do Materialize
- *
- * s12 indica que, em dispositivos pequemos (small), serão
- * exibidos 12/12 => 1 elemento por linha
- *
- * m6 indica que, em dispositivos médios (medium), serão
- * exibidos 12/6 => 2 elementos por linha
- *
- * l4 indica que, em dispositivos grandes (large), serão
- * exibidos 12/4 => 3 elementos por linha
- *
- * Mais detalhes e configurações podem ser vistos em:
- * https://materializecss.com/grid.html
- *
- */
 function getDivisionFrom(number1, number2) {
   if (number2 === 0) {
     return 'Divisão por zero';
@@ -306,6 +286,27 @@ function getFactorialFrom(number) {
 
   return formatNumber(factorial);
 }
+
+/**
+ * Obtendo uma nova div conforme regras do Materialize
+ * No sistema de grid do Materialize, a div "mãe" tem a
+ * class "row" e todos os filhos tem class "col".
+ *
+ * 12 é o "número mágico" do sistema de grids do Materialize
+ *
+ * s12 indica que, em dispositivos pequemos (small), serão
+ * exibidos 12/12 => 1 elemento por linha
+ *
+ * m6 indica que, em dispositivos médios (medium), serão
+ * exibidos 12/6 => 2 elementos por linha
+ *
+ * l4 indica que, em dispositivos grandes (large), serão
+ * exibidos 12/4 => 3 elementos por linha
+ *
+ * Mais detalhes e configurações podem ser vistos em:
+ * https://materializecss.com/grid.html
+ *
+ */
 
 function getMaterializeDiv() {
   var div = document.createElement('div');
