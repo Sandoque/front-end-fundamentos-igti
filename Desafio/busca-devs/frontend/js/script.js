@@ -4,43 +4,43 @@
  */
 const globalState = {
   allPeoples: [],
-  filteredPeoples: [],  
+  filteredPeoples: [],
   loadingData: true,
-  currentFilter: "",
+  currentFilter: '',
 
   radioAnd: false,
   radioOr: true,
 
   checkboxes: [
     {
-      filter: "java",
-      description: "Java",
+      filter: 'java',
+      description: 'Java',
       checked: true,
-      image: 'https://i.pinimg.com/originals/e9/94/61/e99461fdd5b3db8bdb3081d8acf5e524.png'
+      image: './img/java.png',
     },
     {
-      filter: "javascript",
-      description: "JavaScript",
+      filter: 'javascript',
+      description: 'JavaScript',
       checked: true,
-      image: 'https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg'
+      image: './img/javascript.png',
     },
     {
-      filter: "python",
-      description: "Python",
+      filter: 'python',
+      description: 'Python',
       checked: true,
-      image: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg'
-    }
-  ]
+      image: './img/python.png',
+    },
+  ],
 };
 
 /**
  * Variáveis globais que mapeiam elementos HTML
  */
-const globalDivPeoples = document.querySelector("#divPeoples");
-const globalInputName = document.querySelector("#inputName");
-const globalDivCheckboxes = document.querySelector("#checkboxes");
-const globalRadioAnd = document.querySelector("#radioAnd");
-const globalRadioOr = document.querySelector("#radioOr");
+const globalDivPeoples = document.querySelector('#divPeoples');
+const globalInputName = document.querySelector('#inputName');
+const globalDivCheckboxes = document.querySelector('#checkboxes');
+const globalRadioAnd = document.querySelector('#radioAnd');
+const globalRadioOr = document.querySelector('#radioOr');
 
 /**
  * Tudo começa aqui. A invocação desta função é feita
@@ -50,10 +50,10 @@ async function start() {
   /**
    * Adicionando eventos aos inputs, checkboxes e radio buttons
    */
-  globalInputName.addEventListener("input", handleInputChange);
+  globalInputName.addEventListener('input', handleInputChange);
 
-  globalRadioAnd.addEventListener("input", handleRadioClick);
-  globalRadioOr.addEventListener("input", handleRadioClick);
+  globalRadioAnd.addEventListener('input', handleRadioClick);
+  globalRadioOr.addEventListener('input', handleRadioClick);
 
   /**
    * Renderizando os checkboxes de forma dinâmica
@@ -61,13 +61,13 @@ async function start() {
   renderCheckboxes();
 
   /**
-   * Obtendo todos os países do backend
+   * Obtendo todos os DEVS do backend
    * de forma assíncrona
    */
   await fetchAll();
 
   /**
-   * Iniciamos o app já filtrando os países conforme
+   * Iniciamos o app já filtrando os Devs conforme
    * valor inicial dos inputs
    */
   filteredPeoples();
@@ -96,7 +96,7 @@ function renderCheckboxes() {
     );
   });
 
-  globalDivCheckboxes.innerHTML = inputCheckboxes.join("");
+  globalDivCheckboxes.innerHTML = inputCheckboxes.join('');
 
   /**
    * Adicionando eventos
@@ -104,37 +104,36 @@ function renderCheckboxes() {
   checkboxes.forEach((checkbox) => {
     const { filter: id } = checkbox;
     const element = document.querySelector(`#${id}`);
-    element.addEventListener("input", handleCheckboxClick);
+    element.addEventListener('input', handleCheckboxClick);
   });
 }
 
 /**
  * Esta função é executada somente uma vez
- * e traz todos os países do backend. Além disso,
+ * e traz todos os devs do backend. Além disso,
  * faz uma transformação nos dados, incluindo um
  * campo para facilitar a pesquisa (removendo acentos,
  * espaços em branco e tornando todo o texto minúsculo) e
- * também um array contendo somente o nome das línguas
- * faladas em determinado país
+ * também um array contendo somente as linguagens
  */
-async function fetchAll() {  
-  const url = "http://localhost:3000/devs";
+async function fetchAll() {
+  const url = 'http://localhost:3000/devs';
 
   const resource = await fetch(url);
   const json = await resource.json();
 
   const jsonWithImprovedSearch = json.map((item) => {
-    const { name,  programmingLanguages} = item;
+    const { name, programmingLanguages } = item;
 
     const lowerCaseName = name.toLocaleLowerCase();
 
     return {
       ...item,
       searchName: removeAccentMarksFrom(lowerCaseName)
-        .split("")
-        .filter((char) => char !== " ")
-        .join(""),
-      searchLanguages: getOnlyLanguagesFrom(programmingLanguages)
+        .split('')
+        .filter((char) => char !== ' ')
+        .join(''),
+      searchLanguages: getOnlyLanguagesFrom(programmingLanguages),
     };
   });
 
@@ -142,7 +141,7 @@ async function fetchAll() {
    * Atribuindo valores aos campos
    * através de cópia
    */
-  globalState.allPeoples = [...jsonWithImprovedSearch];  
+  globalState.allPeoples = [...jsonWithImprovedSearch];
   globalState.filteredPeoples = [...jsonWithImprovedSearch];
 
   globalState.loadingData = false;
@@ -186,18 +185,20 @@ function handleCheckboxClick({ target }) {
 function handleRadioClick({ target }) {
   const radioId = target.id;
 
-  globalState.radioAnd = radioId === "radioAnd";
-  globalState.radioOr = radioId === "radioOr";
+  globalState.radioAnd = radioId === 'radioAnd';
+  globalState.radioOr = radioId === 'radioOr';
 
   filteredPeoples();
 }
 
 /**
- * Função para varrer o array de idiomas
+ * Função para varrer o array de linguagens
  * e trazer somente o nome em minúsculas, de forma ordenada
  */
 function getOnlyLanguagesFrom(programmingLanguages) {
-  return programmingLanguages.map((item) => item.language.toLocaleLowerCase()).sort();
+  return programmingLanguages
+    .map((item) => item.language.toLocaleLowerCase())
+    .sort();
 }
 
 /**
@@ -205,12 +206,12 @@ function getOnlyLanguagesFrom(programmingLanguages) {
  * de determinado texto
  */
 function removeAccentMarksFrom(text) {
-  const WITH_ACCENT_MARKS = "áãâäàéèêëíìîïóôõöòúùûüñ".split("");
-  const WITHOUT_ACCENT_MARKS = "aaaaaeeeeiiiiooooouuuun".split("");
+  const WITH_ACCENT_MARKS = 'áãâäàéèêëíìîïóôõöòúùûüñ'.split('');
+  const WITHOUT_ACCENT_MARKS = 'aaaaaeeeeiiiiooooouuuun'.split('');
 
   const newText = text
     .toLocaleLowerCase()
-    .split("")
+    .split('')
     .map((char) => {
       /**
        * Se indexOf retorna -1, indica
@@ -232,7 +233,7 @@ function removeAccentMarksFrom(text) {
 
       return char;
     })
-    .join("");
+    .join('');
 
   return newText;
 }
@@ -240,7 +241,7 @@ function removeAccentMarksFrom(text) {
 /**
  * Principal função deste app.
  *
- * Filtra os países conforme definições
+ * Filtra os devs conforme definições
  * do usuário e invoca a renderização
  * da tela
  */
@@ -248,34 +249,34 @@ function filteredPeoples() {
   const { allPeoples, radioOr, currentFilter, checkboxes } = globalState;
 
   /**
-   * Obtendo array de idiomas a partir dos
+   * Obtendo array de devs a partir dos
    * checkboxes que estão marcados, retornando somente o id
    * da linguagem para facilitar a busca.
    */
-  const filterPeoples= checkboxes
+  const filterPeoples = checkboxes
     .filter(({ checked }) => checked)
     .map(({ filter }) => filter)
     .sort();
 
   /**
-   * Obtendo os países com base nos idiomas
+   * Obtendo os devss com base nas linguagebss
    * e se o usuário escolheu "OU", o que abrange mais opções do
    * que "E" (mais limitado)
    */
   let filteredPeoples = allPeoples.filter(({ searchLanguages }) => {
     /**
-     * Com "OU", verificamos se pelo menos um dos idiomas
-     * escolhidos pelo usuário pertence a determinado país.
-     * Ex: Se o usuário escolheu somente Inglês, vai retornar paíse
-     * que fala tanto inglês quanto francês, por exemplo
+     * Com "OU", verificamos se pelo menos um dos devs
+     * escolhidos pelo usuário pertence a determinada linguagem.
+     * Ex: Se o usuário escolheu somente java, vai retornar devs
+     * que desenvolvem tanto em  java quanto em python, por exemplo
      *
-     * Com "E", verificamos a comparação exata do(s) idioma(s)
-     * Ex: Se o usuário escolheu somente Francês, vai retornar país
-     * que fala somente o francês
+     * Com "E", verificamos a comparação exata da(s) linguagen(s)
+     * Ex: Se o usuário escolheu somente java, vai retornar devs
+     * que desenvolvemsomente em java
      */
     return radioOr
       ? filterPeoples.some((item) => searchLanguages.includes(item))
-      : filterPeoples.join("") === searchLanguages.join("");
+      : filterPeoples.join('') === searchLanguages.join('');
   });
 
   /**
@@ -289,7 +290,7 @@ function filteredPeoples() {
   }
 
   /**
-   * Definimos os países filtrados no estado do app
+   * Definimos os devs filtrados no estado do app
    * e invocamos a função de renderização em seguida.
    */
   globalState.filteredPeoples = filteredPeoples;
@@ -298,7 +299,7 @@ function filteredPeoples() {
 }
 
 /**
- * Função de renderização dos países em tela
+ * Função de renderização dos devs em tela
  */
 function renderPeoples() {
   const { filteredPeoples } = globalState;
@@ -307,7 +308,7 @@ function renderPeoples() {
     .map((pleople) => {
       return renderPeople(pleople);
     })
-    .join("");
+    .join('');
 
   const renderedHTML = `
      <div>
@@ -322,7 +323,7 @@ function renderPeoples() {
 }
 
 /**
- * Isolamos a função para renderizar um país,
+ * Isolamos a função para renderizar um dev,
  * utilizando algumas classes do Materialize
  * e o próprio CSS do app
  */
@@ -345,17 +346,16 @@ function renderPeople(people) {
 }
 
 /**
- * Função para renderizar os idiomas.
+ * Função para renderizar as linguagens.
  */
 function renderLanguages(languages) {
   const { checkboxes } = globalState;
-  return languages
-    .map((language) => {
-      const item = checkboxes.find((item) => item.filter === language);
-     return `
+  return languages.map((language) => {
+    const item = checkboxes.find((item) => item.filter === language);
+    return `
       <img class='img-language' src="${item.image}" alt="${item.description}" />
-      `
-    });
+      `;
+  });
 }
 
 /**

@@ -1,6 +1,7 @@
 h1 {
   font-size: 2rem;
   font-weight: bolder;
+  background-color: #a9e2f3;
 }
 
 h2 {
@@ -9,6 +10,7 @@ h2 {
 
 .option {
   margin-right: 30px;
+  font-weight: bolder;
 }
 
 .flag {
@@ -17,7 +19,7 @@ h2 {
 
 .img-language {
   width: 25px;
-  box-shadow: 3px 3px #888888;
+  box-shadow: 3px 3px #a9e2f3;
 }
 
 .people-card {
@@ -25,6 +27,8 @@ h2 {
   border-radius: 4px;
   padding: 4px;
   margin: 4px;
+  background-color: rgb(210, 227, 231);
+  font-weight: bolder;
 
   display: flex;
   flex-direction: row;
