@@ -305,8 +305,8 @@ function renderPeoples() {
   const { filteredPeoples } = globalState;
 
   const peoplesToShow = filteredPeoples
-    .map((pleople) => {
-      return renderPeople(pleople);
+    .map((people) => {
+      return renderPeople(people);
     })
     .join('');
 
